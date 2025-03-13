@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.nbugaenco.graph'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('run', JavaExec) {
+    dependsOn('build')
+    mainClass = 'com.nbugaenco.graph.GraphApplication'
+    classpath = sourceSets.main.runtimeClasspath
+}
