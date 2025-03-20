@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/graph-dfs-bfs.main.iml" filepath="$PROJECT_DIR$/.idea/modules/graph-dfs-bfs.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/graph-application.main.iml" filepath="$PROJECT_DIR$/.idea/modules/graph-application.main.iml" />
     </modules>
   </component>
 </project>
