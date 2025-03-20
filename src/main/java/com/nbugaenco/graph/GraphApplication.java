@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -124,13 +125,13 @@ public class GraphApplication {
           .map(Object::toString)
           .collect(Collectors.joining(" -> "));
       case BK -> {
-        Collection<Node> res = bronKerbosch(graph);
-        result = "Largest independent set of size (%d) and elements: %s".formatted(res.size(), res
+        List<Set<Node>> res = bronKerbosch(graph);
+        result = "All maximum independent sets (%d):%n%s".formatted(res.size(), res
             .stream()
-            .map(Node::getId)
-            .sorted()
+            .map(set -> set.stream().map(Node::getId).collect(Collectors.toSet()))
+            .sorted(Comparator.comparing(Set::size))
             .map(Object::toString)
-            .collect(Collectors.joining(", ")));
+            .collect(Collectors.joining(";\n")));
       }
     }
 
@@ -300,10 +301,8 @@ public class GraphApplication {
    *
    * @return A set containing the largest maximal independent set.
    */
-  private static List<Node> bronKerbosch(final Map<Integer, Node> graph) {
-    return bronKerbosch(new HashSet<>(), new ArrayDeque<>(graph.values()), new HashSet<>(), new HashSet<>())
-        .stream()
-        .toList();
+  private static List<Set<Node>> bronKerbosch(final Map<Integer, Node> graph) {
+    return bronKerbosch(new HashSet<>(), new ArrayDeque<>(graph.values()), new HashSet<>(), new ArrayList<>());
   }
 
   /**
@@ -320,8 +319,8 @@ public class GraphApplication {
    *
    * @return The set containing the largest maximal independent set.
    */
-  private static Set<Node> bronKerbosch(final Set<Node> independent, final Queue<Node> candidates,
-      final Set<Node> excluded, final Set<Node> result) {
+  private static List<Set<Node>> bronKerbosch(final Set<Node> independent, final Queue<Node> candidates,
+      final Set<Node> excluded, final List<Set<Node>> result) {
     // Continue exploring while there are candidates and all excluded nodes
     // still have at least one adjacent node in the candidate set (complete adjacency).
     while (!candidates.isEmpty() && hasCompleteAdjacency(excluded, candidates)) {
@@ -344,10 +343,7 @@ public class GraphApplication {
       // If there are no new candidates or excluded nodes, check if this set is larger
       // than the previously recorded best result and update it if so.
       if (newCandidates.isEmpty() && newExcluded.isEmpty()) {
-        if (independent.size() > result.size()) {
-          result.clear();
-          result.addAll(independent);
-        }
+        result.add(new HashSet<>(independent));
       } else {
         // Recursively explore adding the next candidate.
         bronKerbosch(independent, newCandidates, newExcluded, result);
@@ -356,6 +352,7 @@ public class GraphApplication {
       // Remove the current node from the independent set
       // and move it to excluded, so we don't process it again in this branch.
       independent.remove(current);
+      candidates.remove(current);
       excluded.add(current);
     }
 
