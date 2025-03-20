@@ -67,26 +67,33 @@ public class ApplicationArguments {
       return instance;
     }
 
-    if (args.length < 2) {
-      throw new IllegalArgumentException(
-          "Please provide a file path as the first argument and a starting node ID as the second argument.");
+    if (args.length < 1) {
+      throw new IllegalArgumentException("Please provide a file path as the first argument.");
     }
 
     String filePath = args[0];
-
-    int startNodeId;
-    try {
-      startNodeId = Integer.parseInt(args[1]);
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("The starting node ID must be an integer.");
-    }
-
     SearchMethod searchMethod = SearchMethod.DFS;
-    if (args.length == 3) {
+    int startNodeId = -1;
+
+    if (args.length == 2) {
+      if (args[1].matches("-?\\d+")) {
+        startNodeId = Integer.parseInt(args[1]);
+        return getInstance(filePath, startNodeId, searchMethod);
+      }
+
+      searchMethod = SearchMethod.valueOf(args[1].toUpperCase());
+      if (searchMethod == SearchMethod.BK) {
+        return getInstance(filePath, startNodeId, searchMethod);
+      } else {
+        throw new IllegalArgumentException("Please provide a start node ID for DFS or BFS.");
+      }
+    } else if (args.length == 3) {
       try {
-        searchMethod = SearchMethod.valueOf(args[2]);
+        searchMethod = SearchMethod.valueOf(args[1].toUpperCase());
+        startNodeId = Integer.parseInt(args[2]);
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("The search method must be either DFS or BFS.");
+        throw new IllegalArgumentException(
+            "The search method must be either DFS, BFS or BK, and the start node ID must be an integer.");
       }
     }
 

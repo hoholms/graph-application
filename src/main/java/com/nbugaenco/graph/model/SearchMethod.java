@@ -19,5 +19,10 @@ public enum SearchMethod {
   /**
    * Breadth-First Search (BFS) method.
    */
-  BFS
+  BFS,
+
+  /**
+   * Bron-Kerbosch (BK) method.
+   */
+  BK,
 }

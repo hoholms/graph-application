@@ -44,4 +44,12 @@ public class Node {
     this.id = id;
   }
 
+  public boolean isAdjacent(Node node) {
+    if (this.equals(node)) {
+      return true;
+    }
+
+    return edges.stream().map(Edge::getAdjacent).anyMatch(node::equals);
+  }
+
 }
