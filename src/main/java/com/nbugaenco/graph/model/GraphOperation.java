@@ -1,16 +1,17 @@
 package com.nbugaenco.graph.model;
 
 /**
- * Enum representing the search methods available for graph traversal.
+ * Enum representing the operations available for graph.
  * <p>
- * This enum defines two search methods:
+ * This enum defines the following operations:
  * <ul>
  *   <li>{@code DFS} - Depth-First Search</li>
  *   <li>{@code BFS} - Breadth-First Search</li>
+ *   <li>{@code BK} - Bron-Kerbosch Algorithm</li>
  * </ul>
  * </p>
  */
-public enum SearchMethod {
+public enum GraphOperation {
   /**
    * Depth-First Search (DFS) method.
    */

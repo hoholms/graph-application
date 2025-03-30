@@ -28,10 +28,10 @@ Bron\-Kerbosch algorithm for finding maximal independent sets.
 
 2. **Run**:
    ```bash
-   ./gradlew run --args="<filePath> <searchMethod> <startNodeId>"
+   ./gradlew run --args="<filePath> <graphOperation> <startNodeId>"
    ```
     - **filePath**: The path to the text file containing the graph data.
-    - **searchMethod**: `BFS`, `DFS`, or `BK`. If using `BK`, a start node is optional \(-1 by default\).
+    - **graphOperation**: `BFS`, `DFS`, or `BK`. If using `BK`, a start node is optional \(-1 by default\).
     - **startNodeId**: Required when the method is BFS or DFS.
 
 ### Example

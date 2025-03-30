@@ -17,8 +17,8 @@ public class ApplicationArguments {
   // Starting node ID provided as the second argument
   private final int startNodeId;
 
-  // Search method (DFS or BFS) provided as the third argument, defaults to DFS
-  private final SearchMethod searchMethod;
+  // Operation on the graph provided as the third argument, defaults to DFS
+  private final GraphOperation operation;
 
   /**
    * Private constructor to initialize the application arguments.
@@ -27,13 +27,13 @@ public class ApplicationArguments {
    *     the file path
    * @param startNodeId
    *     the starting node ID
-   * @param searchMethod
+   * @param operation
    *     the search method (DFS or BFS)
    */
-  private ApplicationArguments(final String filePath, final int startNodeId, final SearchMethod searchMethod) {
+  private ApplicationArguments(final String filePath, final int startNodeId, final GraphOperation operation) {
     this.filePath = filePath;
     this.startNodeId = startNodeId;
-    this.searchMethod = searchMethod;
+    this.operation = operation;
   }
 
   /**
@@ -72,32 +72,32 @@ public class ApplicationArguments {
     }
 
     String filePath = args[0];
-    SearchMethod searchMethod = SearchMethod.DFS;
+    GraphOperation graphOperation = GraphOperation.DFS;
     int startNodeId = -1;
 
     if (args.length == 2) {
       if (args[1].matches("-?\\d+")) {
         startNodeId = Integer.parseInt(args[1]);
-        return getInstance(filePath, startNodeId, searchMethod);
+        return getInstance(filePath, startNodeId, graphOperation);
       }
 
-      searchMethod = SearchMethod.valueOf(args[1].toUpperCase());
-      if (searchMethod == SearchMethod.BK) {
-        return getInstance(filePath, startNodeId, searchMethod);
+      graphOperation = GraphOperation.valueOf(args[1].toUpperCase());
+      if (graphOperation == GraphOperation.BK) {
+        return getInstance(filePath, startNodeId, graphOperation);
       } else {
         throw new IllegalArgumentException("Please provide a start node ID for DFS or BFS.");
       }
     } else if (args.length == 3) {
       try {
-        searchMethod = SearchMethod.valueOf(args[1].toUpperCase());
+        graphOperation = GraphOperation.valueOf(args[1].toUpperCase());
         startNodeId = Integer.parseInt(args[2]);
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException(
-            "The search method must be either DFS, BFS or BK, and the start node ID must be an integer.");
+            "The search method must be either DFS, BFS or BK, and the start node ID " + "must be an integer.");
       }
     }
 
-    return getInstance(filePath, startNodeId, searchMethod);
+    return getInstance(filePath, startNodeId, graphOperation);
   }
 
   /**
@@ -107,15 +107,15 @@ public class ApplicationArguments {
    *     the file path
    * @param startNodeId
    *     the starting node ID
-   * @param searchMethod
+   * @param graphOperation
    *     the search method (DFS or BFS)
    *
    * @return the singleton instance
    */
   private static synchronized ApplicationArguments getInstance(final String filePath, final int startNodeId,
-      final SearchMethod searchMethod) {
+      final GraphOperation graphOperation) {
     if (instance == null) {
-      instance = new ApplicationArguments(filePath, startNodeId, searchMethod);
+      instance = new ApplicationArguments(filePath, startNodeId, graphOperation);
     }
     return instance;
   }

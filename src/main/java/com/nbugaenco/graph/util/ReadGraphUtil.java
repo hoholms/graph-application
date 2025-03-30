@@ -41,7 +41,7 @@ import lombok.experimental.UtilityClass;
  * }</pre>
  */
 @UtilityClass
-public class GraphUtil {
+public class ReadGraphUtil {
 
   /**
    * Reads a graph from the file specified in the application arguments.
