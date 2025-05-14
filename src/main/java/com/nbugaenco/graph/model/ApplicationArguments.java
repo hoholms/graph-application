@@ -82,7 +82,7 @@ public class ApplicationArguments {
       }
 
       graphOperation = GraphOperation.valueOf(args[1].toUpperCase());
-      if (graphOperation == GraphOperation.BK) {
+      if (graphOperation == GraphOperation.BK || graphOperation == GraphOperation.PRIM) {
         return getInstance(filePath, startNodeId, graphOperation);
       } else {
         throw new IllegalArgumentException("Please provide a start node ID for DFS or BFS.");

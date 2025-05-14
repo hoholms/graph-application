@@ -26,4 +26,9 @@ public enum GraphOperation {
    * Bron-Kerbosch (BK) method.
    */
   BK,
+
+  /**
+   * Prim's algorithm (PRIM) for finding the minimum spanning tree.
+   */
+  PRIM,
 }

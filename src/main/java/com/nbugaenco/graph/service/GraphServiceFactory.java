@@ -4,26 +4,14 @@ import com.nbugaenco.graph.model.GraphOperation;
 import com.nbugaenco.graph.service.impl.BFSService;
 import com.nbugaenco.graph.service.impl.BronKerboschService;
 import com.nbugaenco.graph.service.impl.DFSService;
+import com.nbugaenco.graph.service.impl.PrimService;
 
 /**
  * Factory class for creating and providing instances of graph services.
- * This class uses eager initialization to create instances of {@link BFSService}, {@link DFSService}, and
- * {@link BronKerboschService}.
+ * This class uses eager initialization to create instances of {@link BFSService}, {@link DFSService},
+ * {@link BronKerboschService} and {@link PrimService}.
  */
 public class GraphServiceFactory {
-
-  private final BFSService          bfsInstance;
-  private final DFSService          dfsInstance;
-  private final BronKerboschService bkInstance;
-
-  /**
-   * Constructor that initializes the service instances.
-   */
-  public GraphServiceFactory() {
-    this.bfsInstance = new BFSService();
-    this.dfsInstance = new DFSService();
-    this.bkInstance = new BronKerboschService();
-  }
 
   /**
    * Returns the appropriate graph service instance based on the provided search method.
@@ -35,9 +23,10 @@ public class GraphServiceFactory {
    */
   public GraphService getService(final GraphOperation method) {
     return switch (method) {
-      case BFS -> this.bfsInstance;
-      case DFS -> this.dfsInstance;
-      case BK -> this.bkInstance;
+      case BFS -> new BFSService();
+      case DFS -> new DFSService();
+      case BK -> new BronKerboschService();
+      case PRIM -> new PrimService();
     };
   }
 

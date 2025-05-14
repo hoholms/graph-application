@@ -11,6 +11,8 @@ Bron\-Kerbosch algorithm for finding maximal independent sets.
     - Explores nodes by going as deep as possible, then backtracking.
 3. **Bron\-Kerbosch**:
     - Finds a maximal independent set in an undirected graph through a recursive algorithm.
+4. **Minimum Spanning Tree (MST) using Prim's algorithm**:
+    - Constructs a minimum spanning tree from a weighted graph.
 
 ## Build and Run
 
@@ -89,6 +91,26 @@ All maximum independent sets (7):
 [4, 7];
 [5, 6];
 [1, 2, 3]
+```
+
+#### Running Prim's Algorithm
+
+```bash
+./gradlew run --args="graph.txt PRIM"
+```
+
+*Output:*
+
+```
+Minimum Spanning Tree (Prim's Algorithm):
+Edges:
+(1 - 6, w:3)
+(6 - 7, w:9)
+(7 - 2, w:5)
+(2 - 5, w:10)
+(6 - 4, w:20)
+(4 - 3, w:18)
+Total Weight: 65
 ```
 
 ## License
