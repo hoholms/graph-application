@@ -49,7 +49,7 @@ The graph data is provided in the `graph.txt` represents the following graph:
 *Output:*
 
 ```
-1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21 -> 22
+1 -> 6 -> 4 -> 5 -> 7 -> 3 -> 2
 ```
 
 #### Running DFS
@@ -69,7 +69,7 @@ or:
 *Output:*
 
 ```
-1 -> 2 -> 5 -> 11 -> 12 -> 6 -> 13 -> 14 -> 3 -> 7 -> 15 -> 16 -> 8 -> 17 -> 18 -> 4 -> 9 -> 19 -> 20 -> 10 -> 21 -> 22
+1 -> 6 -> 3 -> 4 -> 2 -> 5 -> 7
 ```
 
 #### Running Bron\-Kerbosch
@@ -81,7 +81,14 @@ or:
 *Output:*
 
 ```
-Largest independent set of size (15) and elements: 2, 3, 4, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22
+All maximum independent sets (7):
+[2, 6];
+[3, 5];
+[3, 7];
+[4, 5];
+[4, 7];
+[5, 6];
+[1, 2, 3]
 ```
 
 ## License

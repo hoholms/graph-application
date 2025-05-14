@@ -1,6 +1,7 @@
 package com.nbugaenco.graph.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -11,13 +12,19 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"adjacent", "weight"})
 public class Edge {
 
-  /**
-   * The node that this edge is connected to.
-   */
+  private Node parent;
   private Node adjacent;
+  private int  weight;
 
-  // TODO: Add the weight field in future
+  @Override
+  public String toString() {
+    String parentId = (parent != null) ? String.valueOf(parent.getId()) : "?";
+    String adjacentId = (adjacent != null) ? String.valueOf(adjacent.getId()) : "?";
+
+    return "(" + parentId + " - " + adjacentId + ", w:" + weight + ")";
+  }
 
 }
