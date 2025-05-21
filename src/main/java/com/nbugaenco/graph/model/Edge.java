@@ -19,6 +19,18 @@ public class Edge {
   private Node adjacent;
   private int  weight;
 
+  // TODO: Add flag for directed/undirected edges in future
+
+  public Node getAdjacent(final Node node) {
+    if (parent.equals(node)) {
+      return adjacent;
+    } else if (adjacent.equals(node)) {
+      return parent;
+    }
+
+    return null;
+  }
+
   @Override
   public String toString() {
     String parentId = (parent != null) ? String.valueOf(parent.getId()) : "?";

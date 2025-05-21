@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -82,7 +83,11 @@ public class PrimService implements GraphService {
       Edge minEdge = state.minPriorityQueue.poll();
 
       // The node being considered for addition to the MST.
-      Node destination = minEdge.getAdjacent();
+      Node destination = Optional
+          .of(minEdge)
+          .filter(edge -> state.visitedNodes.contains(edge.getAdjacent()))
+          .map(Edge::getParent)
+          .orElseGet(minEdge::getAdjacent);
 
       // Check if the destination node is already in the MST.
       // If it's not visited, adding this edge will not create a cycle and will expand the MST.
@@ -96,7 +101,7 @@ public class PrimService implements GraphService {
         destination
             .getEdges()
             .stream()
-            .filter(edge -> !state.visitedNodes.contains(edge.getAdjacent()))
+            .filter(edge -> !state.visitedNodes.contains(edge.getAdjacent(destination)))
             .forEach(state.minPriorityQueue::add);
       }
     }

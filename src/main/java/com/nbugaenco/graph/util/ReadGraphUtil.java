@@ -115,8 +115,9 @@ public class ReadGraphUtil {
       Node fromNode = graph.get(from);
       Node toNode = graph.get(to);
 
-      fromNode.getEdges().add(new Edge(fromNode, toNode, weight));
-      toNode.getEdges().add(new Edge(toNode, fromNode, weight));
+      final Edge edge = new Edge(fromNode, toNode, weight);
+      fromNode.getEdges().add(edge);
+      toNode.getEdges().add(edge);
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Malformed line with non-integer node IDs or weight: " + line);
     }
@@ -142,7 +143,7 @@ public class ReadGraphUtil {
    *     if the line does not contain at least two or at most three parts
    */
   private static String[] splitLine(final String line) {
-    String[] parts = line.split(",");
+    String[] parts = line.split("[\\s,]+");
     if (parts.length < 2) { // At least two parts are required: from and to; weight is optional
       throw new IllegalArgumentException("Malformed line (expected at least two parts 'node1,node2,weight'): " + line);
     }

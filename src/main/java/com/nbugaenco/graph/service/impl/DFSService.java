@@ -91,8 +91,7 @@ public class DFSService implements GraphService {
         .filter(Predicate.not(visited::contains))
         .filter(visited::add)
         .filter(result::add)
-        .map(Node::getEdges)
-        .ifPresent(edges -> edges.forEach(edge -> dfs(edge.getAdjacent(), visited, result)));
+        .ifPresent(node -> node.getEdges().forEach(edge -> dfs(edge.getAdjacent(node), visited, result)));
 
     return result;
   }

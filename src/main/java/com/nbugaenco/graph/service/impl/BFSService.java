@@ -10,7 +10,6 @@ import java.util.Queue;
 import java.util.Set;
 
 import com.nbugaenco.graph.model.ApplicationArguments;
-import com.nbugaenco.graph.model.Edge;
 import com.nbugaenco.graph.model.Node;
 import com.nbugaenco.graph.service.GraphService;
 import com.nbugaenco.graph.util.CommonGraphUtil;
@@ -96,12 +95,12 @@ public class BFSService implements GraphService {
           .of(queue)
           .map(Queue::poll)
           .filter(result::add)
-          .map(Node::getEdges)
-          .stream()
-          .flatMap(Set::stream)
-          .map(Edge::getAdjacent)
-          .filter(visited::add)
-          .forEach(queue::add);
+          .ifPresent(node -> node
+              .getEdges()
+              .stream()
+              .map(edge -> edge.getAdjacent(node))
+              .filter(visited::add)
+              .forEach(queue::add));
     }
   }
 

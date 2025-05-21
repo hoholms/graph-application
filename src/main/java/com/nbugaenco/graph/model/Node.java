@@ -49,7 +49,7 @@ public class Node {
       return true;
     }
 
-    return edges.stream().map(Edge::getAdjacent).anyMatch(node::equals);
+    return edges.stream().map(edge -> edge.getAdjacent(this)).anyMatch(node::equals);
   }
 
 }
