@@ -4,6 +4,7 @@ import com.nbugaenco.graph.model.GraphOperation;
 import com.nbugaenco.graph.service.impl.BFSService;
 import com.nbugaenco.graph.service.impl.BronKerboschService;
 import com.nbugaenco.graph.service.impl.DFSService;
+import com.nbugaenco.graph.service.impl.DSaturService;
 import com.nbugaenco.graph.service.impl.PrimService;
 
 /**
@@ -27,6 +28,7 @@ public class GraphServiceFactory {
       case DFS -> new DFSService();
       case BK -> new BronKerboschService();
       case PRIM -> new PrimService();
+      case DSATUR -> new DSaturService();
     };
   }
 

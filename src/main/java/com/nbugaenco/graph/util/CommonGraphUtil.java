@@ -1,7 +1,11 @@
 package com.nbugaenco.graph.util;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.nbugaenco.graph.model.Node;
 import lombok.experimental.UtilityClass;
@@ -37,6 +41,31 @@ public class CommonGraphUtil {
    */
   public static boolean hasCompleteAdjacency(final Collection<Node> nodes1, final Collection<Node> nodes2) {
     return nodes1.stream().allMatch(node -> nodes2.stream().anyMatch(node::isAdjacent));
+  }
+
+  /**
+   * Retrieves the set of adjacent nodes (neighbors) for a given node.
+   * <p>
+   * This method iterates through the edges of the specified node and collects
+   * all unique adjacent nodes. It handles cases where the node or its edges might be null.
+   *
+   * @param node
+   *     The {@link Node} whose adjacent nodes are to be retrieved.
+   *
+   * @return A {@link Set} of {@link Node} objects that are adjacent to the given node.
+   * Returns an empty set if the node is null, has no edges, or if no valid adjacent nodes are found.
+   */
+  public static Set<Node> getAdjacentNodes(Node node) {
+    if (node == null || node.getEdges() == null) {
+      return Collections.emptySet();
+    }
+
+    return node
+        .getEdges()
+        .stream()
+        .map(edge -> edge.getAdjacent(node))
+        .filter(Objects::nonNull)
+        .collect(Collectors.toSet());
   }
 
 }

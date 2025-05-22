@@ -31,4 +31,9 @@ public enum GraphOperation {
    * Prim's algorithm (PRIM) for finding the minimum spanning tree.
    */
   PRIM,
+
+  /**
+   * Graph Coloring by Degree of Saturation (DSATUR) method.
+   */
+  DSATUR
 }
