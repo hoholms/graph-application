@@ -147,6 +147,9 @@ Makefile
 graph-app
 graph-app.exe
 
+# CodeQL artifacts
+_codeql_detected_source_root
+
 ### Gradle template
 .gradle
 **/build/
