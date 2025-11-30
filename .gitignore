@@ -129,6 +129,24 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+### CMake template
+# CMake build directories
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Compiled object files
+*.o
+*.obj
+
+# Executables
+graph-app
+graph-app.exe
+
 ### Gradle template
 .gradle
 **/build/
