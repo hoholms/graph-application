@@ -4,6 +4,7 @@
  */
 
 #include "bron_kerbosch.h"
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,6 +39,9 @@ static bool nodeset_add(NodeSet *set, int node_idx) {
         return false;
 
     if (set->count >= set->capacity) {
+        /* Check for potential overflow before multiplying */
+        if (set->capacity > INT_MAX / 2)
+            return false;
         int new_capacity = set->capacity * 2;
         int *new_nodes = realloc(set->nodes, new_capacity * sizeof(int));
         if (!new_nodes)
@@ -97,6 +101,9 @@ static bool independent_sets_add(IndependentSets *sets, const NodeSet *set) {
         return false;
 
     if (sets->count >= sets->capacity) {
+        /* Check for potential overflow before multiplying */
+        if (sets->capacity > INT_MAX / 2)
+            return false;
         int new_capacity = sets->capacity * 2;
         NodeSet *new_sets = realloc(sets->sets, new_capacity * sizeof(NodeSet));
         if (!new_sets)

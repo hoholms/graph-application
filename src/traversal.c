@@ -169,10 +169,22 @@ char *format_traversal_result(const int *result, int count) {
     size_t offset = 0;
 
     for (int i = 0; i < count; i++) {
+        size_t remaining = buf_size - offset;
+        if (remaining <= 1)
+            break; /* Buffer full */
+
+        int written;
         if (i > 0) {
-            offset += snprintf(buffer + offset, buf_size - offset, " -> ");
+            written = snprintf(buffer + offset, remaining, " -> ");
+            if (written < 0 || (size_t)written >= remaining)
+                break;
+            offset += (size_t)written;
+            remaining = buf_size - offset;
         }
-        offset += snprintf(buffer + offset, buf_size - offset, "%d", result[i]);
+        written = snprintf(buffer + offset, remaining, "%d", result[i]);
+        if (written < 0 || (size_t)written >= remaining)
+            break;
+        offset += (size_t)written;
     }
 
     return buffer;

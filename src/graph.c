@@ -5,6 +5,7 @@
 
 #include "graph.h"
 #include <ctype.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,6 +68,9 @@ int graph_get_or_create_node(Graph *graph, int id) {
 
     /* Expand capacity if needed */
     if (graph->node_count >= graph->capacity) {
+        /* Check for potential overflow before multiplying */
+        if (graph->capacity > INT_MAX / 2)
+            return -1;
         int new_capacity = graph->capacity * 2;
         Node *new_nodes = realloc(graph->nodes, new_capacity * sizeof(Node));
         if (!new_nodes)

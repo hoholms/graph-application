@@ -95,6 +95,9 @@ static void pq_heapify_down(PriorityQueue *pq, int idx) {
 
 static bool pq_insert(PriorityQueue *pq, int src, int dest, int weight) {
     if (pq->count >= pq->capacity) {
+        /* Check for potential overflow before multiplying */
+        if (pq->capacity > INT_MAX / 2)
+            return false;
         int new_capacity = pq->capacity * 2;
         PQEntry *new_entries = realloc(pq->entries, new_capacity * sizeof(PQEntry));
         if (!new_entries)
